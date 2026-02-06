@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>For Shristi ❤️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Great+Vibes&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+    body { overflow:hidden; }
+
+    .slider { display:flex; height:100vh; transition:1s; }
+    .slide {
+        min-width:100%;
+        height:100vh;
+        background-size:cover;
+        background-position:center;
+        position:relative;
+        animation:zoom 12s infinite alternate;
+    }
+
+    @keyframes zoom {
+        from { background-size:100%; }
+        to { background-size:110%; }
+    }
+
+    .overlay {
+        background:rgba(0,0,0,0.5);
+        height:100%;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        text-align:center;
+        color:white;
+        padding:30px;
+    }
+
+    .title {
+        font-family:'Great Vibes',cursive;
+        font-size:3rem;
+        margin-bottom:20px;
+        animation:bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+        0%,100%{transform:translateY(0);}
+        50%{transform:translateY(-10px);}
+    }
+
+    p { max-width:550px; font-size:1.2rem; line-height:1.6; }
+
+    .btns { margin-top:25px; display:flex; gap:20px; }
+    button {
+        padding:12px 28px;
+        border:none;
+        border-radius:30px;
+        font-size:1rem;
+        cursor:pointer;
+    }
+
+    .yes { background:#ff2e63; color:white; }
+    .no { background:white; color:#ff2e63; position:relative; }
+
+    .message {
+        margin-top:20px;
+        font-size:1.5rem;
+        display:none;
+    }
+
+    .music-btn {
+        position:fixed;
+        top:15px;
+        right:15px;
+        z-index:10;
+        border:none;
+        background:rgba(0,0,0,0.6);
+        color:white;
+        font-size:20px;
+        padding:10px;
+        border-radius:50%;
+        cursor:pointer;
+    }
+</style>
+```
+
+</head>
+<body>
+
+<audio id="bgMusic" loop>
+    <source src="perfect.mp3.mp3" type="audio/mp3">
+</audio>
+<button class="music-btn" id="musicBtn">🔊</button>
+
+<div class="slider" id="slider">
+
+```
+<!-- Slide 1 -->
+<section class="slide" style="background-image:url('photo1.jpeg')">
+    <div class="overlay">
+        <h1 class="title">Hey Shristi ❤️</h1>
+        <p>
+            We started as just two people online,  
+            two strangers with random conversations…  
+            and somehow, those talks turned into something special.
+            <br><br>
+            From friendship… to something much more beautiful.
+        </p>
+    </div>
+</section>
+
+<!-- Slide 2 -->
+<section class="slide" style="background-image:url('photo2.jpeg')">
+    <div class="overlay">
+        <h1 class="title">Our Little World 😌</h1>
+        <p>
+            We may not have met at first,  
+            but our conversations built something real.  
+            <br><br>
+            And every time I try to sing…  
+            you go “oho oho” instead of clapping. 😤🎤  
+            <br><br>
+            Still, I’d sing a thousand bad songs  
+            just to hear your laugh.
+        </p>
+    </div>
+</section>
+
+<!-- Slide 3 -->
+<section class="slide" style="background-image:url('photo3.jpeg')">
+    <div class="overlay">
+        <h1 class="title">What I Love About You 💕</h1>
+        <p id="typeText"></p>
+    </div>
+</section>
+
+<!-- Slide 4 -->
+<section class="slide" style="background-image:url('photo4.jpeg')">
+    <div class="overlay">
+        <h1 class="title">Will You Be My Valentine? 💖</h1>
+        <div class="btns">
+            <button class="yes">Yes 💕</button>
+            <button class="no">No 😢</button>
+        </div>
+        <div class="message">I knew it! You love me 😌❤️</div>
+    </div>
+</section>
+```
+
+</div>
+
+<script>
+const slider = document.getElementById("slider");
+const slides = document.querySelectorAll(".slide");
+const yesBtn = document.querySelector(".yes");
+const noBtn = document.querySelector(".no");
+const message = document.querySelector(".message");
+const typeText = document.getElementById("typeText");
+const music = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicBtn");
+
+let currentSlide = 0;
+
+/* Auto slide */
+setInterval(() => {
+    currentSlide = (currentSlide + 1) % slides.length;
+    slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+}, 6000);
+
+/* Typewriter */
+const text = `
+• Your laugh that makes everything better
+• Our late-night conversations
+• The way you say “oho oho” to my singing
+• How talking to you feels like home
+• And how you turned a simple friendship into love
+`;
+
+let i = 0;
+function typeWriter() {
+    if (i < text.length) {
+        typeText.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 35);
+    }
+}
+setTimeout(typeWriter, 2000);
+
+/* Music toggle */
+musicBtn.onclick = () => {
+    if (music.paused) {
+        music.play();
+        musicBtn.textContent = "🔊";
+    } else {
+        music.pause();
+        musicBtn.textContent = "🔇";
+    }
+};
+
+/* Yes button */
+yesBtn.onclick = () => {
+    message.style.display = "block";
+    confetti({ particleCount:200, spread:100, origin:{y:0.6} });
+};
+
+/* No button escape */
+noBtn.onmouseover = () => {
+    const x = Math.random()*200-100;
+    const y = Math.random()*200-100;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+};
+</script>
+
+</body>
+</html>
